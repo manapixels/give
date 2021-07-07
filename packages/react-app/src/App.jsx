@@ -23,7 +23,7 @@ import {
   useUserProvider,
 } from "./hooks";
 // import Hints from "./Hints";
-import { ExampleUI, Hints, Subgraph, Donate, TestFaucet, MyProfile, Campaign, Campaigns } from "./views";
+import { ExampleUI, Hints, Subgraph, Donate, MyProfile, Campaign, Campaigns } from "./views";
 /*
     🌏 EXTERNAL CONTRACTS:
     You can also bring in contract artifacts in `constants.js`
@@ -201,18 +201,18 @@ function App(props) {
 
   const [totalDonationsByCurrentWallet, setTotalDonationsByCurrentWallet] = useState(0)
 
-  useEffect(() => {
-    const fetchDonatedAmount = async () => {
-      try {
-        const _totalDonationsByCurrentWallet = await readContracts.Donation.userDepositedUsdc(address, "1")
-        setTotalDonationsByCurrentWallet(_totalDonationsByCurrentWallet)
+  // useEffect(() => {
+  //   const fetchDonatedAmount = async () => {
+  //     try {
+  //       const _totalDonationsByCurrentWallet = await readContracts.Donation.userDepositedUsdc(address, "1")
+  //       setTotalDonationsByCurrentWallet(_totalDonationsByCurrentWallet)
 
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    if (readContracts) fetchDonatedAmount()
-  }, [readContracts])
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   }
+  //   if (readContracts) fetchDonatedAmount()
+  // }, [readContracts])
   
   const [faucetClicked, setFaucetClicked] = useState(false);
   if (
@@ -258,7 +258,7 @@ function App(props) {
         />
 
         <Switch>
-          <Route exact path="/dev-tools">
+          {/* <Route exact path="/dev-tools">
             <TestFaucet 
               address={address}
               selectedProvider={userProvider}
@@ -274,17 +274,17 @@ function App(props) {
               address={address}
               blockExplorer={blockExplorer}
             />
+          </Route> */}
+
+          <Route exact path="/give">
+            <Redirect to="/give/donate" />
           </Route>
 
-          <Route exact path="/">
-            <Redirect to="/donate" />
-          </Route>
-
-          <Route path="/donate">
+          <Route path="/give/donate">
             <Donate />
           </Route>
 
-          <Route exact path="/profile">
+          <Route exact path="/give/profile">
             <MyProfile />
           </Route>
 

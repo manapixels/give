@@ -1,7 +1,7 @@
 {
   "name": "@scaffold-eth/react-app",
   "version": "1.0.0",
-  "homepage": ".",
+  "homepage": "https://zhenyangg.github.io/give",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -84,6 +84,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "gh-pages": "^3.2.3",
     "gulp": "^4.0.2",
     "gulp-csso": "^4.0.1",
     "gulp-debug": "^4.0.0",
@@ -108,6 +109,7 @@
     "surge": "cp build/index.html build/200.html && surge ./build",
     "s3": "node ./scripts/s3.js",
     "ship": "yarn surge",
+    "deploy": "gh-pages -d build",
     "theme": "npx gulp less",
     "watch": "node ./scripts/watch.js"
   }

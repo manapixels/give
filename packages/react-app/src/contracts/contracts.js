@@ -1,1 +1,1 @@
-module.exports = ["Donation"];
+module.exports = [];

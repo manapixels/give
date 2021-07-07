@@ -169,7 +169,7 @@ const Campaign = ({
 
     const getTokenInfo = async () => {
 
-      if (donationAssetAddress && donorAddress && writeContracts && writeContracts['Donation']) {
+      if (donationAssetAddress && donorAddress) {
 
           setIsFetchingTokenInfo(true)
 
@@ -178,7 +178,7 @@ const Campaign = ({
           let tokenContract = new ethers.Contract(donationAssetAddress, DAI_ABI, signer)
           let _decimals = await tokenContract.decimals();
           let _balance = await tokenContract.balanceOf(donorAddress);
-          let donationVaultAddress = writeContracts['Donation'].address
+          let donationVaultAddress = contractAddress
           let _allowance = await tokenContract.allowance(donorAddress, donationVaultAddress);
           console.log(`<<${donationAsset}>> (${donationAssetAddress}) decimals: ${_decimals}, balance: ${_balance}, allowance: ${_allowance}, wallet: ${donorAddress}`)
           setDonationAssetDecimals(_decimals)
@@ -190,15 +190,15 @@ const Campaign = ({
 
   useEffect(() => {
       if (donationAsset && donorAddress) getTokenInfo()
-  }, [donationAsset, donorAddress, writeContracts])
+  }, [donationAsset, donorAddress])
 
     const setFullTokenAllowance = async () => {
-      if (donationAssetAddress && donorAddress && writeContracts && writeContracts['Donation']) {
+      if (donationAssetAddress && donorAddress) {
           try {
               setAllowing(true)
 
               let tokenContract = new ethers.Contract(donationAssetAddress, DAI_ABI, signer);
-              let donationContractAddress = writeContracts['Donation'].address
+              let donationContractAddress = contractAddress
 
               console.log(`approving ${donationAsset} for spender (${donationContractAddress})`)
 
@@ -246,10 +246,10 @@ const Campaign = ({
         console.log(`trying to deposit ${ethers.utils.parseUnits(aaveAmount.toString(), donationAssetDecimals)} to Aave`)
         console.log(`trying to stream ${ethers.utils.parseUnits(superFluidAmount.toString(), donationAssetDecimals)} through SuperFluid`)
     
-        if (donationAmount && donationAssetDecimals && writeContracts && writeContracts['Donation']) {
+        if (donationAmount && donationAssetDecimals) {
             setDepositing(true)
     
-            let donationContractAddress = writeContracts['Donation'].address
+            let donationContractAddress = contractAddress
             startTransfer(superFluidAmount.toString(), 100, donorAddress, donationContractAddress)
 
             await contract.userDepositUsdc(ethers.utils.parseUnits(aaveAmount.toString(), donationAssetDecimals), ethers.utils.parseUnits("0", 1), {
